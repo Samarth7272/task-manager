@@ -19,6 +19,11 @@ if REDIRECT.startswith("http://"):  # local development only
 
 app = Flask(__name__)
 app.secret_key = os.environ["SECRET_KEY"]
+
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
 CORS(app, origins=[FRONTEND], supports_credentials=True)
 db = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_SERVICE_KEY"])
 
